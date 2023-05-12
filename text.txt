@@ -1,3 +1,0 @@
-// بستخدمهم بدل ال body-parser
-// const bodyParser = require("body-parser").urlencoded({ extended: true });
-// app.use(bodyParser);
