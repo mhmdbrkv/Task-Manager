@@ -4,54 +4,46 @@ mongoose.set("strictQuery", false);
 
 const taskModel = require("../models/taskModel");
 
-const url = "mongodb://127.0.0.1:27017/ToDo-List";
-
 const getTasks = async (req, res, next) => {
-  try {
-    await mongoose.connect(url);
-    let resulte = await taskModel.find();
-    res.render("index", { data: resulte });
-    mongoose.disconnect();
-  } catch (err) {
-    console.log(err);
-  }
+  await taskModel
+    .find()
+    .then((result) => {
+      res.render("index", { data: result });
+    })
+    .catch((err) => console.log(err));
 };
 
 const addTasks = async (req, res, next) => {
-    if (req.body.task) {
-      try {
-        await mongoose.connect(url);
-        await new taskModel(req.body).save();
+  if (req.body.task) {
+    await new taskModel(req.body)
+      .save()
+      .then(() => {
         res.redirect("/");
-        mongoose.disconnect();
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      res.redirect("/");
-    }
+      })
+      .catch((err) => console.log(err));
+  } else {
+    res.redirect("/");
   }
+};
 
 const deleteTasks = async (req, res, next) => {
-    try {
-      await mongoose.connect(url);
-      await taskModel.findByIdAndDelete(req.body.ID);
+  await taskModel
+    .findByIdAndDelete(req.body.ID)
+    .then(() => {
       res.redirect("/");
-      mongoose.disconnect();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+    })
+    .catch((err) => console.log(err));
+};
 
-  const updateTasks = async (req, res, next) => {
-    try {
-      await mongoose.connect(url);
-      await taskModel.findByIdAndUpdate(req.body.ID, {task: req.body.modifiedText});
+const updateTasks = async (req, res, next) => {
+  await taskModel
+    .findByIdAndUpdate(req.body.ID, {
+      task: req.body.modifiedText,
+    })
+    .then(() => {
       res.redirect("/");
-      mongoose.disconnect();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+    })
+    .catch((err) => console.log(err));
+};
 
-module.exports = {getTasks, addTasks, deleteTasks, updateTasks}
+module.exports = { getTasks, addTasks, deleteTasks, updateTasks };
