@@ -11,10 +11,12 @@
 <body>
     <form action="/update/<%=ID%>" method="POST" class="form">
         <h2>Update Task:</h2>
-  
         <input type="text" name="modifiedText">
         <input type="submit" value="Update" class="button">
         <input type="hidden" name="ID" value="<%=ID%>">
-    </form>
+        
+        <%for(let error of errors){%>
+            <p style="font-size: 30px"><%=error.msg%></p>
+            <%}%>    </form>
 </body>
 </html>

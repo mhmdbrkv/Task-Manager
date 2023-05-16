@@ -7,10 +7,13 @@
   <body>
     <div class="form">
       <form action="/" method="POST">
-        <input type="text" name="task" placeholder="Add a task" required />
+        <input type="text" name="task" placeholder="Add a task" />
 
         <button type="submit">Add</button>
       </form>
+      <%for(let error of errors){%>
+      <p style="font-size: 30px"><%=error.msg%></p>
+      <%}%>
     </div>
 
     <div class="tasks">
@@ -26,14 +29,12 @@
         </li>
 
         <form method="POST" action="/delete">
-          <button type="submit" >Delete</button>
+          <button type="submit">Delete</button>
           <input type="hidden" name="ID" value="<%=task._id%>" />
         </form>
 
         <br />
-        <%} %> <%}else {%>
-        <p style="font-size: 30px">No tasks to display</p>
-        <%}%>
+        <%} %> <%} %>
       </ul>
     </div>
   </body>
