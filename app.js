@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const url =
-  "mongodb+srv://barakamohamed946:usFIQky3jFVHLQ66@cluster0.7b1lli7.mongodb.net/Tasks?retryWrites=true&w=majority";
+  "mongodb+srv://<Your mongo user name>:<Your password>@cluster0.7b1lli7.mongodb.net/Tasks?retryWrites=true&w=majority";
 
   const STORE = new SessionStore({
     uri: url,
